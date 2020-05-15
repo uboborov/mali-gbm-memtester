@@ -2,6 +2,9 @@
 Memory testing tool, based on the idea of https://github.com/ssvb/lima-memtester but using 
 MALI instead of LIMA, combining it with http://pyropus.ca/software/memtester/
 
+## UPD:
+fbdev replaced with gbm to make app working with r6p2 wayland blobs on Allwinner H3 boards and 4.20.17 kernel
+
 Licensed under the terms of the GNU General Public License version 2 (only)
 because the license of memtester applies to this work as a whole.
 
