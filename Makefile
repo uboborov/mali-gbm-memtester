@@ -12,8 +12,10 @@
 CC=gcc
 MEMTESTER_FOLDER=memtester-4.3.0
 
-LDFLAGS=-lGLESv2 -lEGL -lm -pthread
-CFLAGS=-c -Wall -I$(MEMTESTER_FOLDER)
+LIBMALIPATH = -L/usr/lib/mali
+
+LDFLAGS= -lm -lpthread -lMali -lGLESv2 -lEGL -lgbm -ldrm
+CFLAGS=-c -Wall -I$(MEMTESTER_FOLDER) -I ./include/wayland -I/usr/include/drm
 OBJDIR=obj
 
 SOURCES_TC=textured-cube.c textured-cube-demo.c
@@ -29,10 +31,10 @@ mkobjdir:
 	mkdir -p $(OBJDIR)
 
 textured-cube-demo: $(OBJECTS_TC)
-	$(CC) $(LDFLAGS) $(OBJECTS_TC) -o $@
+	$(CC) $(OBJECTS_TC) $(LDFLAGS) -o $@ $(LIBMALIPATH)
 
 mali-memtester: $(OBJECTS_MT)
-	$(CC) $(LDFLAGS) $(OBJECTS_MT) -o $@	
+	$(CC) $(OBJECTS_MT) $(LDFLAGS) -o $@ $(LIBMALIPATH)	
 
 $(OBJDIR)/%.o: %.c mkobjdir
 	$(CC) $(CFLAGS) $< -o $@
